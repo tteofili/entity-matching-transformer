@@ -4,11 +4,11 @@ from datetime import datetime
 
 from config import read_arguments_train, write_config_to_file, Config
 from logging_customized import setup_logging
-from src.data_loader import load_data, DataType
-from src.data_representation import DeepMatcherProcessor, QqpProcessor
-from src.evaluation import Evaluation
-from src.model import save_model
-from src.optimizer import build_optimizer
+from data_loader import load_data, DataType
+from data_representation import DeepMatcherProcessor, QqpProcessor
+from evaluation import Evaluation
+from model import save_model
+from optimizer import build_optimizer
 from torch_initializer import initialize_gpu_seed
 from training import train
 
@@ -54,7 +54,8 @@ if __name__ == "__main__":
     model.to(device)
     logging.info("initialized {}-model".format(args.model_type))
 
-    train_examples = processor.get_train_examples(args.data_path)
+    cut = 5
+    train_examples = processor.get_train_examples(args.data_path)[:cut]
     training_data_loader = load_data(train_examples,
                                      label_list,
                                      tokenizer,

@@ -3,13 +3,21 @@ import csv
 import logging
 import os
 from typing import Callable
-
+import sys
 import pandas as pd
 
-import constants as C
-from logging_customized import setup_logging
 
-setup_logging()
+logging.basicConfig(level=logging.INFO,
+                        format='%(message)s',
+                        datefmt="%H:%M:%S",
+                        stream=sys.stdout)
+
+logging.getLogger('bert-classifier-entity-matching')
+
+INDEX_KEY = "idx"
+TEXT_LEFT = "text_left"
+TEXT_RIGHT = "text_right"
+LABEL = "label"
 
 
 def convert_deepmatcher_structure(filename_matches: str, filename_table_a: str,
@@ -22,7 +30,7 @@ def convert_deepmatcher_structure(filename_matches: str, filename_table_a: str,
         reader = csv.DictReader(src, delimiter=",")
         writer = csv.writer(dest, delimiter="\t")
 
-        writer.writerow([C.INDEX_KEY, C.TEXT_LEFT, C.TEXT_RIGHT, C.LABEL])
+        writer.writerow([INDEX_KEY, TEXT_LEFT, TEXT_RIGHT, LABEL])
 
         for idx, line in enumerate(reader):
             # find the row in tableA and tableB which contain the actual values. Make sure both keys have the same data type (we use string comparison as keys can be strings)
