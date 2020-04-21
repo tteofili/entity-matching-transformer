@@ -54,8 +54,10 @@ if __name__ == "__main__":
     model.to(device)
     logging.info("initialized {}-model".format(args.model_type))
 
-    cut = 5
-    train_examples = processor.get_train_examples(args.data_path)[:cut]
+    train_examples = processor.get_train_examples(args.data_path)
+    if args.cut is not None:
+        train_examples = train_examples[:args.cut]
+        logging.info("training with {} examples".format(args.cut))
     training_data_loader = load_data(train_examples,
                                      label_list,
                                      tokenizer,

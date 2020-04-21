@@ -51,6 +51,7 @@ def read_arguments_train():
     parser.add_argument('--warmup_steps', default=0, type=int)
     parser.add_argument('--max_grad_norm', default=1.0, type=float)
     parser.add_argument('--weight_decay', default=0.0, type=float)
+    parser.add_argument('--cut', default=None, type=int)
 
     parser.add_argument('--seed', default=42, type=int)
 
